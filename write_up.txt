@@ -19,10 +19,11 @@ After using training data, we applied the model to predict results based on the 
 We checked the accuracy of this precision using previously mentioned metrics. Using 2020 data, loss/MSE was 646246016.0, and MAE was 14268.16. The loss and MSE were relatively high, suggesting that the model’s predictions vary significantly from actual values. These results indicate significant prediction errors on average and that the neural network model does not perform optimally for this intended task. 
 
 Linear Regression
-There were 163 Nan values in the data frame which had to be removed because in order to run a linear regression. 
-We ran into substantial difficulty replacing the values. First tried mean/median imputation, but indexing errors prevented the imputation (Ex. “Shape of passed values is (670, 326), indices imply (670, 12)”)
-Next we tried replacing NaN values with zeros and creating respective binary columns using 1 as an indicator of a missing value. This resulted in significant warnings, such as “PerformanceWarning: DataFrame is highly fragmented.” 
-This is where we are currently at playa. 
+There were 163 NaN values in the data frame, which had to be removed in order to run a linear regression.  We ran into substantial difficulty replacing these NaN values. We first tried mean/median imputation, but indexing errors prevented the imputation (Ex. “Shape of passed values is (670, 326), indices imply (670, 12)”), Next we tried replacing NaN values with zeros and creating respective binary columns using 1 as an indicator of a missing value. This resulted in significant warnings, such as “PerformanceWarning: DataFrame is highly fragmented,”  due to repeated modifications to the data frame when we replaced NaNs with ‘0’ using “fillna().”
+When running the linear regression model, we again split the data into testing and training data, at an 80:20 ratio. 
+The linear regression model predicted ________. The accuracy metrics of the prediction resulted in an MSE of 4,561,411,588.389202 and an r2 of -48.085. The MSE is exceptionally high. This suggests that the model’s predictions deviate significantly from the actual values in the data set, and indicates extremely poor model performance. The r2 of -48.09 is extraordinarily poor. An r2 of 0 would indicate that the model performs no better than a model that predicts the mean of the target variable, disregarding input features. The r2 here indicates that the model performs worse than the baseline model. 
+Reasons for such poor performance could be significant underfitting of the data or high variance in the data that the simple linear regression model is poor at comprehending.
+
 
 Conclusion: One to two pages summarizing the project, defending it from criticism, and suggesting additional work that was outside the scope of the project.
 
