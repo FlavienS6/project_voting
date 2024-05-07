@@ -11,6 +11,11 @@ Bugs were a huge limation in our process.
 
 Results: Two to five pages providing visualizations, statistics, tables, a discussion of your methodology, and a presentation of your main results. In particular, how are you approaching the prediction problem? How confident are you about your assessments that counties will support one party or the other?
 
+EDA
+
+The initial steps for the Exploratory Data Analysis involved loading the data and normalizing numeric variables using a MinMaxScaler, and transforming certain skewed variables using the arcsinh transformation. The transformation of “net_total” into “net_total_ihs” using the arcsinh function is meant to stabilize variance and normalize the distribution of heavily skewed variables.
+The resulting graphs were quite messy. Looking at the scatter plots, we can see that many plots show a strong linear relationship, a good sign for linear predictive modeling. 
+
 
 Neural Network 
 We started our analysis with a neural network after getting past challenges with cleaning the data. The neural network model was employed to predict net total votes defined in the data frame “df_total.” Data was split into training and testing samples at an 80:20 ratio. The model consisted of three layers configured with 64, 32, and 1 units, respectively. We used a Rectified Linear Unit activation function for the first three layers, and a linear activation function for the output layer. We used the Adam optimizer and mean squared error as the loss function, and mean absolute error (MAE) and mean squared error (MSE) as performance tracking metrics. 
