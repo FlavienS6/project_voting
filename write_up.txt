@@ -1,5 +1,7 @@
 Summary: A one paragraph description of the question, methods, and results (about 350 words).
- 
+
+The goal of our project was to build predictive models for the 2024 presidential election results in the state of Virginia. To do so, we used voting data from 2000 to 2020 on presidential elections in Virginia as well as county level data. We first used an exploratory data analysis to gain a clear understanding of what the data looks like. Our predictive models included a neural network and linear regression, which used to predict a winner of the 2024 Virginia election, either Democrat (D) or Republican (R). We faced a handful of challenges in the data cleaning process, which significantly limited our freedom of prediction and overall results. The data, overall, was noisy, a problem for us when addressing with data scaling and normalization, which led to worse results and weaker predictions.
+
 
 Data: One to two pages discussing the data and key variables, and any challenges in reading, cleaning, and preparing them for analysis.
 We began our process by cleaning data from “voting_VA.” We dropped unnecessary columns, such as “Unnamed: 0” using “df.drop()”. We then examined the consistency of the data, using .unique(), to ensure the data only included variables that were looking for, including state, state_po, office, and mode. We wanted to ensure the data only included information on Virginia votes for President and checked to see if any action was needed. 
