@@ -1,0 +1,30 @@
+Summary: A one paragraph description of the question, methods, and results (about 350 words).
+ 
+
+Data: One to two pages discussing the data and key variables, and any challenges in reading, cleaning, and preparing them for analysis.
+We began our process by cleaning data from “voting_VA.” We dropped unnecessary columns, such as “Unnamed: 0” using “df.drop()”. We then examined the consistency of the data, using .unique(), to ensure the data only included variables that were looking for, including state, state_po, office, and mode. We wanted to ensure the data only included information on Virginia votes for President and checked to see if any action was needed. 
+We decided to examine correlations between voting including the mode as an independent variable, so we used “.astype(‘category’)” to provide a data frame where the modes aggregate all individual records across different voting modes into a single record per candidate per county per election year. We put this data into a new data frame called “df_aggregated.”
+The next step in cleaning was to drop unimportant information from the aggregated data frame, such as candidate and third-party information. We then reorganized the data into “df_real,” then after merging and dropping some more columns, we created “df_final.” After creating “df_final,” we converted column data into the same data type: “str,” then merged it with “df_melt,” which was provided. 
+Challenges:
+Our biggest challenge in the cleaning process was merging county voting data with county data based on year and fids. We ran into significant bugs and IndexErrors with the concatenation of these two data and ultimately used “df_melt” to get around these problems before running our regression.
+Bugs were a huge limation in our process.
+
+Results: Two to five pages providing visualizations, statistics, tables, a discussion of your methodology, and a presentation of your main results. In particular, how are you approaching the prediction problem? How confident are you about your assessments that counties will support one party or the other?
+
+
+Neural Network 
+We started our analysis with a neural network after getting past challenges with cleaning the data. The neural network model was employed to predict net total votes defined in the data frame “df_total.” Data was split into training and testing samples at an 80:20 ratio. The model consisted of three layers configured with 64, 32, and 1 units, respectively. We used a Rectified Linear Unit activation function for the first three layers, and a linear activation function for the output layer. We used the Adam optimizer and mean squared error as the loss function, and mean absolute error (MAE) and mean squared error (MSE) as performance tracking metrics. 
+We evaluated the model using the training data. Initial testing showed a loss/MSE of 218362576.0 and an MAE of 6693.91. The results showed high error, suggesting potential issues including overfitting or inadequately captured interactions between features.
+After using training data, we applied the model to predict results based on the 2020 election, since data from that year is closest to the next election, and thus more helpful. We summed all predictions from 2020 data to create one prediction for the 2024 election. Our resulting prediction was that Democrats would win by a margin of -3.526. 
+We checked the accuracy of this precision using previously mentioned metrics. Using 2020 data, loss/MSE was 646246016.0, and MAE was 14268.16. The loss and MSE were relatively high, suggesting that the model’s predictions vary significantly from actual values. These results indicate significant prediction errors on average and that the neural network model does not perform optimally for this intended task. 
+
+Linear Regression
+There were 163 Nan values in the data frame which had to be removed because in order to run a linear regression. 
+We ran into substantial difficulty replacing the values. First tried mean/median imputation, but indexing errors prevented the imputation (Ex. “Shape of passed values is (670, 326), indices imply (670, 12)”)
+Next we tried replacing NaN values with zeros and creating respective binary columns using 1 as an indicator of a missing value. This resulted in significant warnings, such as “PerformanceWarning: DataFrame is highly fragmented.” 
+This is where we are currently at playa. 
+
+Conclusion: One to two pages summarizing the project, defending it from criticism, and suggesting additional work that was outside the scope of the project.
+
+
+
