@@ -1,0 +1,48 @@
+Summary:
+
+The goal of our project was to build predictive models for the 2024 presidential election results in the state of Virginia. To do so, we used voting data from 2000 to 2020 on presidential elections in Virginia, as well as county-level data. We first used an exploratory data analysis to gain a clear understanding of what the data looks like. Our predictive models included a neural network and linear regression, which were used to predict a winner of the 2024 Virginia election, either Democrat (D) or Republican (R). We faced a handful of challenges in the data-cleaning process, significantly limiting our freedom of prediction and overall results. The data, overall, was noisy, a problem for us when addressing data scaling and normalization, which led to worse results and weaker predictions.
+
+
+Data:
+
+We began our process by cleaning data from “voting_VA.” We dropped unnecessary columns, such as “Unnamed: 0” using “df.drop()”. We then examined the consistency of the data, using .unique(), to ensure the data only included variables that were looking for, including state, state_po, office, and mode. We wanted to ensure the data only included information on Virginia votes for President and checked to see if any action was needed. 
+We decided to examine correlations between voting including the mode as an independent variable, so we used “.astype(‘category’)” to provide a data frame where the modes aggregate all individual records across different voting modes into a single record per candidate per county per election year. We put this data into a new data frame called “df_aggregated.”
+The next step in cleaning was to drop unimportant information from the aggregated data frame, such as candidate and third-party information. We then reorganized the data into “df_real,” after merging and dropping some more columns, we created “df_final.” After creating “df_final,” we converted column data into the same data type: “str,” and then merged it with “df_melt,” which was provided. 
+Challenges:
+Our biggest challenge in the cleaning process was merging county voting data with county data based on year and fids. We ran into significant bugs and index errors with the concatenation of these two data and ultimately used “df_melt” to get around these problems before running our regression.
+Bugs were a huge limitation in our process.
+
+Results: Two to five pages providing visualizations, statistics, tables, a discussion of your methodology, and a presentation of your main results. In particular, how are you approaching the prediction problem? How confident are you about your assessments that counties will support one party or the other?
+
+EDA
+
+The initial steps for the Exploratory Data Analysis involved loading the data, normalizing numeric variables using a MinMaxScaler, and transforming certain skewed variables using the arcsinh transformation. The transformation of “net_total” into “net_total_ihs” using the arcsinh function is meant to stabilize variance and normalize the distribution of heavily skewed variables.
+The resulting graphs were quite messy. Looking at the scatter plots, we can see that many plots show a strong linear relationship, a good sign for linear predictive modeling. 
+
+
+Neural Network 
+We started our analysis with a neural network after getting past challenges with cleaning the data. The neural network model was employed to predict net total votes defined in the data frame “df_total.” Data was split into training and testing samples at an 80:20 ratio. The model consisted of three layers configured with 64, 32, and 1 units, respectively. We used a Rectified Linear Unit activation function for the first three layers, and a linear activation function for the output layer. We used the Adam optimizer and mean squared error as the loss function, and mean absolute error (MAE) and mean squared error (MSE) as performance tracking metrics. 
+We evaluated the model using the training data. Initial testing showed a loss/MSE of 218362576.0 and an MAE of 6693.91. The results showed high error, suggesting potential issues including overfitting or inadequately captured interactions between features.
+After using training data, we applied the model to predict results based on the 2020 election, since data from that year is closest to the next election, and thus more helpful. We summed all predictions from 2020 data to create one prediction for the 2024 election. Our resulting prediction was that Republicans  would win by a margin of 3.4022. 
+We checked the accuracy of this precision using previously mentioned metrics. Using 2020 data, loss/MSE was 94.948, and MAE was 9.686. The loss and MSE were relatively high, suggesting that the model’s predictions vary significantly from actual values. These results indicate significant prediction errors on average and that the neural network model does not perform optimally for this intended task. 
+
+Linear Regression
+There were 163 NaN values in the data frame, which had to be removed to run a linear regression.  We ran into substantial difficulty replacing these NaN values. We first tried mean/median imputation, but indexing errors prevented the imputation (Ex. “Shape of passed values is (670, 326), indices imply (670, 12)”), Next we tried replacing NaN values with zeros and creating respective binary columns using 1 as an indicator of a missing value. This resulted in significant warnings, such as “PerformanceWarning: DataFrame is highly fragmented,”  due to repeated modifications to the data frame when we replaced NaNs with ‘0’ using “fillna().”
+When running the linear regression model, we again split the data into testing and training data, at an 80:20 ratio. 
+The linear regression model predicted ________. The accuracy metrics of the prediction resulted in an MSE of 4,561,411,588.389202 and an r2 of -45.747. The MSE is exceptionally high. This suggests that the model’s predictions deviate significantly from the actual values in the data set, and indicates extremely poor model performance. The r2 of -48.09 is extraordinarily poor. An r2 of 0 would indicate that the model performs no better than a model that predicts the mean of the target variable, disregarding input features. The r2 here indicates that the model performs worse than the baseline model. 
+Reasons for such poor performance could be significant underfitting of the data or high variance in the data that the simple linear regression model is poor at comprehending.
+
+
+
+Conclusion: 
+
+Our project aimed to develop a predictive framework for the 2024 presidential election results in Virginia using historical voting data paired with county-level data. The process involved data preparation, exploratory data analysis (EDA), and implementing two predictive models: neural network and linear regression. 
+We encountered multiple challenges, namely, concatenating the VA county voting data with other county data based on year and FIPS. Ultimately, we turned to the melted CSV to get past these problems. Other limitations of our predictive models included a lack of quality training data and 2024 data, so the best we could do is predict using 2020 data since it is the most recent data. Ultimately, bugs we faced during data cleaning significantly impacted our ability to use a variety of more complex predictive models. 
+The EDA was instrumental in uncovering the structure of the data and highlighted some relationships and distributions that were informative in the later predictive models. By normalizing numerical variables and addressing missing values and outliers, we created an aggregated data set to use as a foundation.
+Our neural network model, despite tuning, encountered challenges with high loss and MAE, indicating potential overfitting and a failure to capture feature interaction adequately. The model predicted a Democrat win in 2024 by a margin of -3.526. However, the prediction was ultimately weak and faced significant accuracy errors.
+The linear regression model showed an extremely high r2 of -48.085 and predicted a ______ win in 2024 by _______ difference. The results from linear regression can be attributed to our challenges in handling missing data and the lack of data scaling and normalization. It also suggests that a linear regression model might be too simple for this inherently complex prediction challenge. 
+In reflection, it is clear that the accuracy and reliability of our models need enhancement. Future work could incorporate additional data, such as broader demographic, economic, and more granular voting data, which would address issues with the strength of our training data. We could also incorporate more advanced modeling techniques absent our issues in merging county data.
+
+
+
+
