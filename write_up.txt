@@ -12,7 +12,7 @@ Challenges:
 Our biggest challenge in the cleaning process was merging county voting data with county data based on year and fids. We ran into significant bugs and index errors with the concatenation of these two data and ultimately used “df_melt” to get around these problems before running our regression.
 Bugs were a huge limitation in our process.
 
-Results: Two to five pages providing visualizations, statistics, tables, a discussion of your methodology, and a presentation of your main results. In particular, how are you approaching the prediction problem? How confident are you about your assessments that counties will support one party or the other?
+Results: 
 
 EDA
 
@@ -21,6 +21,7 @@ The resulting graphs were quite messy. Looking at the scatter plots, we can see 
 
 
 Neural Network 
+
 We started our analysis with a neural network after getting past challenges with cleaning the data. The neural network model was employed to predict net total votes defined in the data frame “df_total.” Data was split into training and testing samples at an 80:20 ratio. The model consisted of three layers configured with 64, 32, and 1 units, respectively. We used a Rectified Linear Unit activation function for the first three layers, and a linear activation function for the output layer. We used the Adam optimizer and mean squared error as the loss function, and mean absolute error (MAE) and mean squared error (MSE) as performance tracking metrics. 
 We evaluated the model using the training data. Initial testing showed a loss/MSE of 218362576.0 and an MAE of 6693.91. The results showed high error, suggesting potential issues including overfitting or inadequately captured interactions between features.
 After using training data, we applied the model to predict results based on the 2020 election, since data from that year is closest to the next election, and thus more helpful. We summed all predictions from 2020 data to create one prediction for the 2024 election. Our resulting prediction was that Republicans  would win by a margin of 3.4022. 
